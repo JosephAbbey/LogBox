@@ -1,8 +1,27 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
-  "jest.autoRun": "off"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "jest.autoRun": "off",
+    "cSpell.words": ["logbox"],
+    "files.exclude": {
+        "**/.git": false,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true,
+        "**/node_modules": true,
+        "**/blitz-env.d.ts": true,
+        "**/.blitz.config.compiled.js": true,
+        "**/yarn.lock": true,
+        "**/yarn-error.log": true
+    },
+    "explorerExclude.backup": null
 }
