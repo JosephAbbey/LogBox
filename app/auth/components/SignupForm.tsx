@@ -1,17 +1,16 @@
-import { useMutation } from "blitz"
-import { LabeledTextField } from "app/core/components/LabeledTextField"
-import { Form, FORM_ERROR } from "app/core/components/Form"
-import signup from "app/auth/mutations/signup"
-import { Signup } from "app/auth/validations"
-import { Button } from "@mui/material"
-import { ThirdPartySignins } from "./ThirdPartySignins"
+import { useMutation } from 'blitz';
+import { LabeledTextField } from 'app/core/components/LabeledTextField';
+import { Form, FORM_ERROR } from 'app/core/components/Form';
+import signup from 'app/auth/mutations/signup';
+import { Signup } from 'app/auth/validations';
+import { ThirdPartySignins } from './ThirdPartySignins';
 
 type SignUpFormProps = {
-    onSuccess?: () => void
-}
+    onSuccess?: () => void;
+};
 
 export const SignUpForm = (props: SignUpFormProps) => {
-    const [signupMutation] = useMutation(signup)
+    const [signupMutation] = useMutation(signup);
 
     return (
         <div>
@@ -20,17 +19,17 @@ export const SignUpForm = (props: SignUpFormProps) => {
             <Form
                 submitText="Create Account"
                 schema={Signup}
-                initialValues={{ email: "", password: "" }}
+                initialValues={{ email: '', password: '' }}
                 onSubmit={async (values) => {
                     try {
-                        await signupMutation(values)
-                        props.onSuccess?.()
+                        await signupMutation(values);
+                        props.onSuccess?.();
                     } catch (error: any) {
-                        if (error.code === "P2002" && error.meta?.target?.includes("email")) {
+                        if (error.code === 'P2002' && error.meta?.target?.includes('email')) {
                             // This error comes from Prisma
-                            return { email: "This email is already being used" }
+                            return { email: 'This email is already being used' };
                         } else {
-                            return { [FORM_ERROR]: error.toString() }
+                            return { [FORM_ERROR]: error.toString() };
                         }
                     }
                 }}
@@ -46,7 +45,7 @@ export const SignUpForm = (props: SignUpFormProps) => {
 
             <ThirdPartySignins />
         </div>
-    )
-}
+    );
+};
 
-export default SignUpForm
+export default SignUpForm;

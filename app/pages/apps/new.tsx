@@ -1,11 +1,11 @@
-import { Link, useRouter, useMutation, BlitzPage, Routes } from "blitz"
-import Layout from "app/core/layouts/Layout"
-import createApp from "app/apps/mutations/createApp"
-import { AppForm, FORM_ERROR } from "app/apps/components/AppForm"
+import { Link, useRouter, useMutation, BlitzPage, Routes } from 'blitz';
+import Layout from 'app/core/layouts/Layout';
+import createApp from 'app/apps/mutations/createApp';
+import { AppForm, FORM_ERROR } from 'app/apps/components/AppForm';
 
 const NewAppPage: BlitzPage = () => {
-    const router = useRouter()
-    const [createAppMutation] = useMutation(createApp)
+    const router = useRouter();
+    const [createAppMutation] = useMutation(createApp);
 
     return (
         <div>
@@ -20,13 +20,13 @@ const NewAppPage: BlitzPage = () => {
                 // initialValues={{}}
                 onSubmit={async (values) => {
                     try {
-                        const app = await createAppMutation(values)
-                        router.push(Routes.ShowAppPage({ appId: app.id }))
+                        const app = await createAppMutation(values);
+                        router.push(Routes.ShowAppPage({ appId: app.id }));
                     } catch (error: any) {
-                        console.error(error)
+                        console.error(error);
                         return {
                             [FORM_ERROR]: error.toString(),
-                        }
+                        };
                     }
                 }}
             />
@@ -37,10 +37,10 @@ const NewAppPage: BlitzPage = () => {
                 </Link>
             </p>
         </div>
-    )
-}
+    );
+};
 
-NewAppPage.authenticate = true
-NewAppPage.getLayout = (page) => <Layout title={"Create New App"}>{page}</Layout>
+NewAppPage.authenticate = true;
+NewAppPage.getLayout = (page) => <Layout title={'Create New App'}>{page}</Layout>;
 
-export default NewAppPage
+export default NewAppPage;

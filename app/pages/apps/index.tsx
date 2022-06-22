@@ -1,21 +1,21 @@
-import { Suspense } from "react"
-import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes } from "blitz"
-import Layout from "app/core/layouts/Layout"
-import getApps from "app/apps/queries/getApps"
+import { Suspense } from 'react';
+import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes } from 'blitz';
+import Layout from 'app/core/layouts/Layout';
+import getApps from 'app/apps/queries/getApps';
 
-const ITEMS_PER_PAGE = 100
+const ITEMS_PER_PAGE = 100;
 
 export const AppsList = () => {
-    const router = useRouter()
-    const page = Number(router.query.page) || 0
+    const router = useRouter();
+    const page = Number(router.query.page) || 0;
     const [{ apps, hasMore }] = usePaginatedQuery(getApps, {
-        orderBy: { id: "asc" },
+        orderBy: { id: 'asc' },
         skip: ITEMS_PER_PAGE * page,
         take: ITEMS_PER_PAGE,
-    })
+    });
 
-    const goToPreviousPage = () => router.push({ query: { page: page - 1 } })
-    const goToNextPage = () => router.push({ query: { page: page + 1 } })
+    const goToPreviousPage = () => router.push({ query: { page: page - 1 } });
+    const goToNextPage = () => router.push({ query: { page: page + 1 } });
 
     return (
         <div>
@@ -36,8 +36,8 @@ export const AppsList = () => {
                 Next
             </button>
         </div>
-    )
-}
+    );
+};
 
 const AppsPage: BlitzPage = () => {
     return (
@@ -58,10 +58,10 @@ const AppsPage: BlitzPage = () => {
                 </Suspense>
             </div>
         </>
-    )
-}
+    );
+};
 
-AppsPage.authenticate = true
-AppsPage.getLayout = (page) => <Layout>{page}</Layout>
+AppsPage.authenticate = true;
+AppsPage.getLayout = (page) => <Layout>{page}</Layout>;
 
-export default AppsPage
+export default AppsPage;

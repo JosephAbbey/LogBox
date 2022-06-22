@@ -1,16 +1,19 @@
-import { Head, BlitzLayout } from "blitz"
+import { Head, BlitzLayout } from 'blitz';
 
-const Layout: BlitzLayout<{title?: string, children?: React.ReactNode}> = ({ title, children }) => {
-  return (
-    <>
-      <Head>
-        <title>{title || "LogBox"}</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
+    title,
+    children,
+}) => {
+    return (
+        <>
+            <Head>
+                <title>{title || 'LogBox'}</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
 
-      {children}
-    </>
-  )
-}
+            {children}
+        </>
+    );
+};
 
-export default Layout
+export default Layout;

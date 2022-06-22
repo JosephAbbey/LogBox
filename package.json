@@ -15,8 +15,10 @@
         "schema": "db/schema.prisma"
     },
     "prettier": {
-        "semi": false,
-        "printWidth": 100
+        "printWidth": 100,
+        "singleQuote": true,
+        "trailingComma": "all",
+        "tabWidth": 4
     },
     "lint-staged": {
         "*.{js,ts,tsx}": [
@@ -24,6 +26,11 @@
         ]
     },
     "dependencies": {
+        "@emotion/react": "11.9.3",
+        "@emotion/server": "11.4.0",
+        "@emotion/styled": "11.9.3",
+        "@mui/icons-material": "5.8.4",
+        "@mui/material": "5.8.5",
         "@prisma/client": "3.15.2",
         "blitz": "0.45.4",
         "final-form": "4.20.7",
@@ -47,5 +54,6 @@
         "prisma": "3.15.2",
         "typescript": "~4.5"
     },
-    "private": true
+    "private": true,
+    "packageManager": "yarn@1.22.18"
 }

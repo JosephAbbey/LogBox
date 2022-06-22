@@ -7,7 +7,7 @@
     "jest.autoRun": "off",
     "cSpell.words": ["logbox"],
     "files.exclude": {
-        "**/.git": false,
+        "**/.git": true,
         "**/.svn": true,
         "**/.hg": true,
         "**/CVS": true,
