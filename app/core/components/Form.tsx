@@ -3,7 +3,7 @@ import { Form as FinalForm, FormProps as FinalFormProps } from 'react-final-form
 import { z } from 'zod';
 import { validateZodSchema } from 'blitz';
 export { FORM_ERROR } from 'final-form';
-import { Button, Alert } from '@mui/material';
+import { Button, Alert, Paper, Box } from '@mui/material';
 
 export interface FormProps<S extends z.ZodType<any, any>>
     extends Omit<PropsWithoutRef<JSX.IntrinsicElements['form']>, 'onSubmit'> {
@@ -37,9 +37,11 @@ export function Form<S extends z.ZodType<any, any>>({
                     {submitError && <Alert severity="error">{submitError}</Alert>}
 
                     {submitText && (
-                        <Button type="submit" disabled={submitting}>
-                            {submitText}
-                        </Button>
+                        <Box sx={{ display: 'grid', placeItems: 'center' }}>
+                            <Button type="submit" disabled={submitting}>
+                                {submitText}
+                            </Button>
+                        </Box>
                     )}
 
                     <style global jsx>{`

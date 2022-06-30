@@ -14,6 +14,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import theme from 'app/core/styles/theme';
 import createEmotionCache from 'app/core/utils/createEmotionCache';
+import { Box, useMediaQuery } from '@mui/material';
+import NavBar from 'app/core/components/NavBar';
+
+import '../core/styles/global.css';
+
 interface MyAppProps extends AppProps {
     emotionCache?: EmotionCache;
 }
@@ -28,15 +33,26 @@ export default function App({
 }: MyAppProps) {
     const getLayout = Component.getLayout || ((page) => page);
 
+    var dark = useMediaQuery('(prefers-color-scheme: dark)');
+
     return (
         <CacheProvider value={emotionCache}>
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme(dark ? 'dark' : 'light')}>
+                <NavBar />
                 <CssBaseline />
                 <ErrorBoundary
                     FallbackComponent={RootErrorFallback}
                     onReset={useQueryErrorResetBoundary().reset}
                 >
-                    {getLayout(<Component {...pageProps} />)}
+                    {getLayout(
+                        <Box
+                            sx={{
+                                paddingTop: '3.625rem',
+                            }}
+                        >
+                            <Component {...pageProps} />
+                        </Box>,
+                    )}
                 </ErrorBoundary>
             </ThemeProvider>
         </CacheProvider>

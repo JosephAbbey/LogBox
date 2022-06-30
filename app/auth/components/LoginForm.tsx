@@ -3,7 +3,7 @@ import { LabeledTextField } from 'app/core/components/LabeledTextField';
 import { Form, FORM_ERROR } from 'app/core/components/Form';
 import login from 'app/auth/mutations/login';
 import { Login } from 'app/auth/validations';
-import { Button } from '@mui/material';
+import { Box, Button, Paper, Typography } from '@mui/material';
 import { ThirdPartySignins } from './ThirdPartySignins';
 
 type LoginFormProps = {
@@ -14,50 +14,72 @@ export const LoginForm = (props: LoginFormProps) => {
     const [loginMutation] = useMutation(login);
 
     return (
-        <div>
-            <h1>Login</h1>
-            <Form
-                submitText="Login"
-                schema={Login}
-                initialValues={{ email: '', password: '' }}
-                onSubmit={async (values) => {
-                    try {
-                        const user = await loginMutation(values);
-                        props.onSuccess?.(user);
-                    } catch (error: any) {
-                        if (error instanceof AuthenticationError) {
-                            return { [FORM_ERROR]: 'Sorry, those credentials are invalid' };
-                        } else {
-                            return {
-                                [FORM_ERROR]:
-                                    'Sorry, we had an unexpected error. Please try again. - ' +
-                                    error.toString(),
-                            };
-                        }
-                    }
+        <Box sx={{ display: 'grid', placeItems: 'center' }}>
+            <Paper
+                sx={{
+                    display: 'inline-grid',
+                    padding: '2em',
+                    backgroundColor: 'background.paper',
+                    minWidth: '30em',
+                    placeItems: 'center',
+                    marginTop: '2em',
                 }}
             >
-                <LabeledTextField name="email" label="Email" placeholder="Email" />
-                <LabeledTextField
-                    name="password"
-                    label="Password"
-                    placeholder="Password"
-                    type="password"
-                />
+                <Typography sx={{ marginTop: 0, marginBottom: '1em' }} variant="h5">
+                    Login
+                </Typography>
+                <Form
+                    submitText="Login"
+                    schema={Login}
+                    initialValues={{ email: '', password: '' }}
+                    onSubmit={async (values) => {
+                        try {
+                            const user = await loginMutation(values);
+                            props.onSuccess?.(user);
+                        } catch (error: any) {
+                            if (error instanceof AuthenticationError) {
+                                return { [FORM_ERROR]: 'Sorry, those credentials are invalid' };
+                            } else {
+                                return {
+                                    [FORM_ERROR]:
+                                        'Sorry, we had an unexpected error. Please try again. - ' +
+                                        error.toString(),
+                                };
+                            }
+                        }
+                    }}
+                >
+                    <LabeledTextField
+                        name="email"
+                        label="Email"
+                        placeholder="Email"
+                        autoComplete="email"
+                    />
+                    <LabeledTextField
+                        name="password"
+                        label="Password"
+                        placeholder="Password"
+                        type="password"
+                        autoComplete="current-password"
+                    />
+                    <div>
+                        <Link href={Routes.ForgotPasswordPage()}>
+                            <Button variant="text" sx={{ fontSize: '.7em' }}>
+                                Forgot your password?
+                            </Button>
+                        </Link>
+                    </div>
+                </Form>
                 <div>
-                    <Link href={Routes.ForgotPasswordPage()}>
-                        <Button>Forgot your password?</Button>
+                    or{'   '}
+                    <Link href={Routes.SignUpPage()}>
+                        <Button>Sign Up</Button>
                     </Link>
                 </div>
-            </Form>
-            <ThirdPartySignins />
-            <br />
-            <br />
-            Or
-            <Link href={Routes.SignUpPage()}>
-                <Button>Sign Up</Button>
-            </Link>
-        </div>
+                <br />
+                <ThirdPartySignins />
+            </Paper>
+        </Box>
     );
 };
 

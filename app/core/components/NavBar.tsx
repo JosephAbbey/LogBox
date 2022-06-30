@@ -1,28 +1,28 @@
-import { Suspense, useState } from 'react';
+import { Suspense, useState, MouseEvent } from 'react';
 import {
     IconButton,
-    Button,
     Avatar,
-    Box,
     Menu,
     MenuItem,
     ListItemIcon,
     Divider,
     Typography,
     Tooltip,
+    Paper,
+    Badge,
 } from '@mui/material';
 import { useCurrentUser } from 'app/core/hooks/useCurrentUser';
 import logout from 'app/auth/mutations/logout';
 import { useMutation, Routes, Link } from 'blitz';
 import * as React from 'react';
-import { PersonAdd, Settings, Logout } from '@mui/icons-material';
+import { Home, Logout, Settings } from '@mui/icons-material';
 
-export function NavBar() {
+function NavBarInner() {
     const currentUser = useCurrentUser();
     const [logoutMutation] = useMutation(logout);
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    const handleClick = (event: MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
@@ -30,22 +30,48 @@ export function NavBar() {
     };
     return (
         <>
-            <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                <Typography sx={{ minWidth: 100 }}>Contact</Typography>
-                <Typography sx={{ minWidth: 100 }}>Profile</Typography>
+            <Paper
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    borderRadius: '0',
+                    padding: '.5em',
+                    position: 'fixed',
+                    width: '100%',
+                    top: 0,
+                    left: 0,
+                }}
+            >
+                <Link href={Routes.Home()}>
+                    <IconButton size="small" sx={{ ml: 2, marginX: '.5em' }}>
+                        <Avatar sx={{ width: 32, height: 32 }}>
+                            <Home />
+                        </Avatar>
+                    </IconButton>
+                </Link>
+
+                <Link href={Routes.AppsPage()}>
+                    <Typography sx={{ minWidth: 100, cursor: 'pointer' }}>My Apps</Typography>
+                </Link>
+
                 <Tooltip title="Account settings">
                     <IconButton
                         onClick={handleClick}
                         size="small"
-                        sx={{ ml: 2 }}
+                        sx={{ ml: 2, marginLeft: 'auto', marginRight: '.5em' }}
                         aria-controls={open ? 'account-menu' : undefined}
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                     >
-                        <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                        <Badge badgeContent={currentUser ? undefined : '?'} color="primary">
+                            <Avatar sx={{ width: 32, height: 32 }}>
+                                <Settings />
+                            </Avatar>
+                        </Badge>
                     </IconButton>
                 </Tooltip>
-            </Box>
+            </Paper>
             <Menu
                 anchorEl={anchorEl}
                 id="account-menu"
@@ -81,46 +107,49 @@ export function NavBar() {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                {currentUser ? (
-                    <>
-                        <MenuItem>
-                            User id: <code>{currentUser.id}</code>
-                        </MenuItem>
-                        <MenuItem>
-                            User role: <code>{currentUser.role}</code>
-                        </MenuItem>
-                        <Divider />
-                        <MenuItem
-                            onClick={async () => {
-                                await logoutMutation();
-                            }}
-                        >
-                            <ListItemIcon>
-                                <Logout fontSize="small" />
-                            </ListItemIcon>
-                            Logout
-                        </MenuItem>
-                    </>
-                ) : (
-                    <>
-                        <MenuItem>
-                            <Link href={Routes.SignUpPage()}>
-                                <Button>
-                                    <strong>Sign Up</strong>
-                                </Button>
-                            </Link>
-                        </MenuItem>
-                        <MenuItem>
-                            <Link href={Routes.LoginPage()}>
-                                <Button>
-                                    <strong>Login</strong>
-                                </Button>
-                            </Link>
-                        </MenuItem>
-                    </>
-                )}
+                {currentUser
+                    ? [
+                          <MenuItem key={0}>
+                              User id:&nbsp;<code>{currentUser.id}</code>
+                          </MenuItem>,
+                          <MenuItem key={1}>
+                              User role:&nbsp;<code>{currentUser.role}</code>
+                          </MenuItem>,
+                          <Divider key={2} />,
+                          <MenuItem
+                              key={3}
+                              onClick={async () => {
+                                  await logoutMutation();
+                              }}
+                          >
+                              <ListItemIcon>
+                                  <Logout fontSize="small" />
+                              </ListItemIcon>
+                              Logout
+                          </MenuItem>,
+                      ]
+                    : [
+                          <MenuItem key={0}>
+                              <Link href={Routes.SignUpPage()}>
+                                  <strong>Sign Up</strong>
+                              </Link>
+                          </MenuItem>,
+                          <MenuItem key={1}>
+                              <Link href={Routes.LoginPage()}>
+                                  <strong>Login</strong>
+                              </Link>
+                          </MenuItem>,
+                      ]}
             </Menu>
         </>
+    );
+}
+
+export function NavBar() {
+    return (
+        <Suspense fallback="Loading...">
+            <NavBarInner />
+        </Suspense>
     );
 }
 

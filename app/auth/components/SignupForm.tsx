@@ -34,6 +34,7 @@ export const SignUpForm = (props: SignUpFormProps) => {
                     }
                 }}
             >
+                <LabeledTextField name="name" label="Name" placeholder="Name" />
                 <LabeledTextField name="email" label="Email" placeholder="Email" />
                 <LabeledTextField
                     name="password"

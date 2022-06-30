@@ -2,39 +2,55 @@ import { Suspense } from 'react';
 import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes } from 'blitz';
 import Layout from 'app/core/layouts/Layout';
 import getApps from 'app/apps/queries/getApps';
+import { Box, Breadcrumbs, Button, Pagination, Paper, Stack, Typography } from '@mui/material';
+import { useCurrentUser } from 'app/core/hooks/useCurrentUser';
 
-const ITEMS_PER_PAGE = 100;
+const ITEMS_PER_PAGE = 10;
 
-export const AppsList = () => {
+export const AppsList = ({ page, items }: { page?: number; items?: number }) => {
     const router = useRouter();
-    const page = Number(router.query.page) || 0;
-    const [{ apps, hasMore }] = usePaginatedQuery(getApps, {
-        orderBy: { id: 'asc' },
-        skip: ITEMS_PER_PAGE * page,
-        take: ITEMS_PER_PAGE,
+    const pagination = page === undefined;
+    page = page || Number(router.query.page) || 0;
+    const [{ apps, count }] = usePaginatedQuery(getApps, {
+        orderBy: { updatedAt: 'desc' },
+        skip: (items || ITEMS_PER_PAGE) * page,
+        take: items || ITEMS_PER_PAGE,
     });
-
-    const goToPreviousPage = () => router.push({ query: { page: page - 1 } });
-    const goToNextPage = () => router.push({ query: { page: page + 1 } });
 
     return (
         <div>
-            <ul>
+            <Stack
+                spacing={1}
+                sx={{
+                    marginX: '.5em',
+                }}
+            >
                 {apps.map((app) => (
-                    <li key={app.id}>
-                        <Link href={Routes.ShowAppPage({ appId: app.id })}>
-                            <a>{app.name}</a>
-                        </Link>
-                    </li>
+                    <Link key={app.id} href={Routes.ShowAppPage({ appId: app.id })}>
+                        <Paper
+                            sx={{
+                                cursor: 'pointer',
+                                padding: '.5em',
+                            }}
+                        >
+                            {app.name}
+                        </Paper>
+                    </Link>
                 ))}
-            </ul>
+            </Stack>
 
-            <button disabled={page === 0} onClick={goToPreviousPage}>
-                Previous
-            </button>
-            <button disabled={!hasMore} onClick={goToNextPage}>
-                Next
-            </button>
+            {pagination && (
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <Pagination
+                        sx={{ margin: '1em' }}
+                        count={Math.ceil(count / ITEMS_PER_PAGE)}
+                        page={page + 1}
+                        onChange={(_, value) => router.push({ query: { page: value - 1 } })}
+                        showFirstButton
+                        showLastButton
+                    />
+                </Box>
+            )}
         </div>
     );
 };
@@ -45,13 +61,16 @@ const AppsPage: BlitzPage = () => {
             <Head>
                 <title>Apps</title>
             </Head>
-
             <div>
-                <p>
+                <Typography variant="h5" sx={{ margin: '.5em' }}>
+                    Apps
+                </Typography>
+
+                <Typography variant="body1" sx={{ margin: '.5em' }}>
                     <Link href={Routes.NewAppPage()}>
-                        <a>Create App</a>
+                        <Button>Create App</Button>
                     </Link>
-                </p>
+                </Typography>
 
                 <Suspense fallback={<div>Loading...</div>}>
                     <AppsList />

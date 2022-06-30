@@ -1,4 +1,4 @@
-import { Link, useRouter, useMutation, BlitzPage, Routes } from 'blitz';
+import { Link, useRouter, useMutation, BlitzPage, Routes, NotFoundError } from 'blitz';
 import Layout from 'app/core/layouts/Layout';
 import createApp from 'app/apps/mutations/createApp';
 import { AppForm, FORM_ERROR } from 'app/apps/components/AppForm';
@@ -21,6 +21,7 @@ const NewAppPage: BlitzPage = () => {
                 onSubmit={async (values) => {
                     try {
                         const app = await createAppMutation(values);
+                        if (!app) throw new Error('Failed to create app');
                         router.push(Routes.ShowAppPage({ appId: app.id }));
                     } catch (error: any) {
                         console.error(error);
@@ -30,12 +31,6 @@ const NewAppPage: BlitzPage = () => {
                     }
                 }}
             />
-
-            <p>
-                <Link href={Routes.AppsPage()}>
-                    <a>Apps</a>
-                </Link>
-            </p>
         </div>
     );
 };

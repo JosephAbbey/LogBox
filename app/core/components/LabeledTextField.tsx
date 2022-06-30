@@ -1,6 +1,6 @@
 import { forwardRef, ComponentPropsWithoutRef, PropsWithoutRef } from 'react';
 import { useField, UseFieldConfig } from 'react-final-form';
-import { Alert } from '@mui/material';
+import { Alert, Input, TextField } from '@mui/material';
 
 export interface LabeledTextFieldProps extends PropsWithoutRef<JSX.IntrinsicElements['input']> {
     /** Field name. */
@@ -15,7 +15,7 @@ export interface LabeledTextFieldProps extends PropsWithoutRef<JSX.IntrinsicElem
 }
 
 export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldProps>(
-    ({ name, label, outerProps, fieldProps, labelProps, ...props }, ref) => {
+    ({ name, label, outerProps, fieldProps, ...props }, ref) => {
         const {
             input,
             meta: { touched, error, submitError, submitting },
@@ -32,29 +32,18 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
 
         return (
             <div {...outerProps}>
-                <label {...labelProps}>
-                    {label}
-                    <input {...input} disabled={submitting} {...props} ref={ref} />
-                </label>
+                <TextField
+                    inputProps={props}
+                    {...input}
+                    disabled={submitting}
+                    ref={ref}
+                    label={label}
+                    sx={{
+                        margin: '.5em',
+                    }}
+                />
 
                 {touched && normalizedError && <Alert severity="error">{normalizedError}</Alert>}
-
-                <style jsx>{`
-                    label {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: start;
-                        font-size: 1rem;
-                    }
-                    input {
-                        font-size: 1rem;
-                        padding: 0.25rem 0.5rem;
-                        border-radius: 3px;
-                        border: 1px solid purple;
-                        appearance: none;
-                        margin-top: 0.5rem;
-                    }
-                `}</style>
             </div>
         );
     },

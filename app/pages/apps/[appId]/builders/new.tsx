@@ -33,12 +33,6 @@ const NewBuilderPage: BlitzPage = () => {
                     }
                 }}
             />
-
-            <p>
-                <Link href={Routes.BuildersPage({ appId: appId! })}>
-                    <a>Builders</a>
-                </Link>
-            </p>
         </div>
     );
 };

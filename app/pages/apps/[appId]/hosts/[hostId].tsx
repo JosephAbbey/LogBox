@@ -1,25 +1,25 @@
 import { Suspense } from 'react';
 import { Head, Link, useRouter, useQuery, useParam, BlitzPage, useMutation, Routes } from 'blitz';
 import Layout from 'app/core/layouts/Layout';
-import getBuilder from 'app/builders/queries/getBuilder';
-import deleteBuilder from 'app/builders/mutations/deleteBuilder';
-import { Breadcrumbs, Button, Typography } from '@mui/material';
+import getHost from 'app/hosts/queries/getHost';
+import deleteHost from 'app/hosts/mutations/deleteHost';
 import getApp from 'app/apps/queries/getApp';
+import { Breadcrumbs, Button, Typography } from '@mui/material';
 import Confirm from 'app/core/components/Confirm';
 
-export const Builder = () => {
+export const Host = () => {
     const router = useRouter();
-    const builderId = useParam('builderId', 'number');
+    const hostId = useParam('hostId', 'number');
     const appId = useParam('appId', 'number');
-    const [deleteBuilderMutation] = useMutation(deleteBuilder);
-    const [builder] = useQuery(getBuilder, { id: builderId });
+    const [deleteHostMutation] = useMutation(deleteHost);
+    const [host] = useQuery(getHost, { id: hostId });
     const [app] = useQuery(getApp, { id: appId });
 
     return (
         <>
             <Head>
                 <title>
-                    {app.name} / {builder.name}
+                    {app.name} / {host.name}
                 </title>
             </Head>
 
@@ -37,7 +37,7 @@ export const Builder = () => {
                                 {app.name}
                             </Typography>
                         </Link>
-                        <Link href={`/apps/${appId}/builders`}>
+                        <Link href={`/apps/${appId}/hosts`}>
                             <Typography
                                 sx={{
                                     fontSize: 'inherit',
@@ -45,18 +45,18 @@ export const Builder = () => {
                                     '&:hover': { textDecoration: 'underline' },
                                 }}
                             >
-                                Builders
+                                Hosts
                             </Typography>
                         </Link>
                         <Typography sx={{ fontSize: 'inherit' }} color="text.primary">
-                            {builder.name}
+                            {host.name}
                         </Typography>
                     </Breadcrumbs>
                 </Typography>
 
-                {/* <pre>{JSON.stringify(builder, null, 2)}</pre> */}
+                {/* <pre>{JSON.stringify(host, null, 2)}</pre> */}
 
-                <Link href={Routes.EditBuilderPage({ appId: appId!, builderId: builder.id })}>
+                <Link href={Routes.EditHostPage({ appId: appId!, hostId: host.id })}>
                     <Button variant="outlined" sx={{ margin: '.5em' }}>
                         Edit
                     </Button>
@@ -66,8 +66,8 @@ export const Builder = () => {
                     title="This will be deleted."
                     button="Delete"
                     handleYes={async () => {
-                        await deleteBuilderMutation({ id: builder.id });
-                        router.push(Routes.BuildersPage({ appId: appId! }));
+                        await deleteHostMutation({ id: host.id });
+                        router.push(Routes.HostsPage({ appId: appId! }));
                     }}
                 ></Confirm>
             </div>
@@ -75,17 +75,17 @@ export const Builder = () => {
     );
 };
 
-const ShowBuilderPage: BlitzPage = () => {
+const ShowHostPage: BlitzPage = () => {
     return (
         <div>
             <Suspense fallback={<div>Loading...</div>}>
-                <Builder />
+                <Host />
             </Suspense>
         </div>
     );
 };
 
-ShowBuilderPage.authenticate = true;
-ShowBuilderPage.getLayout = (page) => <Layout>{page}</Layout>;
+ShowHostPage.authenticate = true;
+ShowHostPage.getLayout = (page) => <Layout>{page}</Layout>;
 
-export default ShowBuilderPage;
+export default ShowHostPage;
