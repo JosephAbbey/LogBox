@@ -12,7 +12,6 @@ import createEmotionServer from '@emotion/server/create-instance';
 import theme from 'app/core/styles/theme';
 import createEmotionCache from 'app/core/utils/createEmotionCache';
 import { useMediaQuery } from '@mui/material';
-import NavBar from 'app/core/components/NavBar';
 
 export function MetaThemeColor() {
     var dark = useMediaQuery('(prefers-color-scheme: dark)');
@@ -85,6 +84,7 @@ export default class MyDocument extends Document {
                 <DocumentHead>
                     {/* PWA primary color */}
                     <MetaThemeColor />
+                    {/* eslint-disable-next-line @next/next/no-page-custom-font */}
                     <link
                         rel="stylesheet"
                         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"

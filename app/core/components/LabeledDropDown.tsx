@@ -1,21 +1,28 @@
-import { forwardRef, ComponentPropsWithoutRef, PropsWithoutRef } from 'react';
+import { forwardRef, ComponentPropsWithoutRef, PropsWithoutRef, useState } from 'react';
 import { useField, UseFieldConfig } from 'react-final-form';
-import { Alert, Box, FormControl, Input, TextField } from '@mui/material';
+import {
+    Alert,
+    Box,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    SelectChangeEvent,
+    TextField,
+} from '@mui/material';
 
-export interface LabeledTextFieldProps extends PropsWithoutRef<JSX.IntrinsicElements['input']> {
-    /** Field name. */
+export interface LabeledDropDownProps extends PropsWithoutRef<JSX.IntrinsicElements['input']> {
     name: string;
-    /** Field label. */
     label: string;
-    /** Field type. Doesn't include radio buttons and checkboxes */
     type?: 'text' | 'password' | 'email' | 'number';
     outerProps?: PropsWithoutRef<JSX.IntrinsicElements['div']>;
     labelProps?: ComponentPropsWithoutRef<'label'>;
     fieldProps?: UseFieldConfig<string>;
+    options: string[];
 }
 
-export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldProps>(
-    ({ name, label, outerProps, fieldProps, ...props }, ref) => {
+export const LabeledDropDown = forwardRef<HTMLInputElement, LabeledDropDownProps>(
+    ({ name, label, outerProps, fieldProps, options, ...props }, ref) => {
         const {
             input,
             meta: { touched, error, submitError, submitting },
@@ -40,8 +47,16 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
                     label={label}
                     sx={{
                         margin: '.5em',
+                        minWidth: '210px',
                     }}
-                />
+                    select
+                >
+                    {options.map((v, i) => (
+                        <MenuItem key={i} value={v}>
+                            {v}
+                        </MenuItem>
+                    ))}
+                </TextField>
 
                 {touched && normalizedError && <Alert severity="error">{normalizedError}</Alert>}
             </Box>
@@ -49,4 +64,4 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
     },
 );
 
-export default LabeledTextField;
+export default LabeledDropDown;

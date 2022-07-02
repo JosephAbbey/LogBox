@@ -16,6 +16,7 @@ export default resolver.pipe(resolver.zod(GetApp), resolver.authorize(), async (
             name: true,
             createdAt: true,
             updatedAt: true,
+            repository: true,
             builders: {
                 select: {
                     id: true,

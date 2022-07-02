@@ -20,6 +20,7 @@ export default resolver.pipe(
                 name: true,
                 createdAt: true,
                 updatedAt: true,
+                repository: true,
                 builders: {
                     select: {
                         id: true,

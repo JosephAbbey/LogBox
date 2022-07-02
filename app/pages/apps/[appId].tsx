@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { ForwardedRef, forwardRef, Suspense } from 'react';
 import {
     Head,
     Link,
@@ -14,19 +14,26 @@ import Confirm from 'app/core/components/Confirm';
 import Layout from 'app/core/layouts/Layout';
 import getApp from 'app/apps/queries/getApp';
 import deleteApp from 'app/apps/mutations/deleteApp';
-import { Box, Button, Grid, Paper, PaperProps, Stack, Typography } from '@mui/material';
+import { Box, Button, Paper, PaperProps, Stack, Typography } from '@mui/material';
+import { GitHub } from '@mui/icons-material';
 
-export const Card = (props: PaperProps) => (
-    <Paper
-        {...props}
-        sx={{
-            margin: '.25em',
-            padding: '.5em',
-            width: '20em',
-            backgroundColor: 'background.default',
-            ...props.sx,
-        }}
-    ></Paper>
+export const Card = forwardRef(
+    ({ children, ...props }: PaperProps & { xs?: number }, ref: ForwardedRef<HTMLDivElement>) => (
+        <Paper
+            {...props}
+            sx={{
+                padding: '.5em',
+                maxWidth: '20em',
+                backgroundColor: 'background.default',
+                marginBottom: '10px',
+                breakInside: 'avoid',
+                ...props.sx,
+            }}
+            ref={ref}
+        >
+            {children}
+        </Paper>
+    ),
 );
 
 export const List = ({
@@ -42,24 +49,26 @@ export const List = ({
     listPage: () => RouteUrlObject;
     newPage: () => RouteUrlObject;
 }) => (
-    <Card>
-        <Typography variant="h6" sx={{ margin: '.2em', fontSize: '1em' }}>
-            {name.charAt(0).toUpperCase() + name.toLowerCase().slice(1)}s:
-        </Typography>
-        <Stack spacing={1} maxHeight="20em">
-            {items.map((item) => (
-                <Link key={item.id} href={itemPage(item.id)}>
-                    <Paper
-                        sx={{
-                            cursor: 'pointer',
-                            padding: '.5em',
-                        }}
-                    >
-                        {item.name}
-                    </Paper>
-                </Link>
-            ))}
-        </Stack>
+    <Card sx={{ display: 'grid', alignContent: 'space-between' }}>
+        <Box>
+            <Typography variant="h6" sx={{ margin: '.2em', fontSize: '1em' }}>
+                {name.charAt(0).toUpperCase() + name.toLowerCase().slice(1)}s:
+            </Typography>
+            <Stack spacing={1} maxHeight="20em">
+                {items.map((item) => (
+                    <Link key={item.id} href={itemPage(item.id)}>
+                        <Paper
+                            sx={{
+                                cursor: 'pointer',
+                                padding: '.5em',
+                            }}
+                        >
+                            {item.name}
+                        </Paper>
+                    </Link>
+                ))}
+            </Stack>
+        </Box>
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Link href={listPage()}>
                 <Typography
@@ -98,17 +107,36 @@ export const App = () => {
                 <title>{app.name}</title>
             </Head>
 
-            <div>
+            <>
                 <Typography variant="h5" sx={{ margin: '.5em' }}>
                     {app.name}
                 </Typography>
 
                 {/* <pre>{JSON.stringify(app, null, 2)}</pre> */}
-                <Grid
-                    container
-                    spacing={2}
-                    sx={{ margin: 'auto', width: '75%', justifyContent: 'center' }}
+                <Box
+                    sx={{
+                        margin: 'auto',
+                        maxWidth: { xs: '20em', md: '41em', lg: '62em' },
+                        columns: { xs: '1 20em', md: '2 20em', lg: '3 20em' },
+                    }}
                 >
+                    {app.repository ? (
+                        <Link href={app.repository.url}>
+                            <Card sx={{ position: 'relative', cursor: 'pointer' }}>
+                                {app.repository.name}
+                                {app.repository.type === 'GitHub' ? (
+                                    <GitHub
+                                        sx={{
+                                            position: 'absolute',
+                                            top: '0',
+                                            right: '0',
+                                            margin: 'calc(.25em + 2px)',
+                                        }}
+                                    />
+                                ) : null}
+                            </Card>
+                        </Link>
+                    ) : null}
                     <List
                         name="builder"
                         items={app.builders}
@@ -123,7 +151,21 @@ export const App = () => {
                         listPage={() => Routes.HostsPage({ appId: app.id })}
                         newPage={() => Routes.NewHostPage({ appId: app.id })}
                     />
-                </Grid>
+                </Box>
+
+                {app.repository ? (
+                    <Link href={Routes.EditRepositoryPage({ appId: app.id })}>
+                        <Button variant="outlined" sx={{ margin: '.5em' }}>
+                            Edit Repository
+                        </Button>
+                    </Link>
+                ) : (
+                    <Link href={Routes.AddRepositoryPage({ appId: app.id })}>
+                        <Button variant="outlined" sx={{ margin: '.5em' }}>
+                            Add Repository
+                        </Button>
+                    </Link>
+                )}
 
                 <Link href={Routes.EditAppPage({ appId: app.id })}>
                     <Button variant="outlined" sx={{ margin: '.5em' }}>
@@ -139,7 +181,7 @@ export const App = () => {
                         router.push(Routes.AppsPage());
                     }}
                 ></Confirm>
-            </div>
+            </>
         </>
     );
 };

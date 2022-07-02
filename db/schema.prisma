@@ -67,13 +67,14 @@ model Token {
 // }
 
 model App {
-    name      String    @unique
-    id        Int       @id @default(autoincrement())
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
-    builders  Builder[]
-    hosts     Host[]
-    users     User[]
+    name       String      @unique
+    id         Int         @id @default(autoincrement())
+    createdAt  DateTime    @default(now())
+    updatedAt  DateTime    @updatedAt
+    builders   Builder[]
+    hosts      Host[]
+    users      User[]
+    repository Repository?
 }
 
 model Builder {
@@ -83,6 +84,7 @@ model Builder {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     name      String
+    logs      Log[]
 }
 
 model Host {
@@ -92,4 +94,27 @@ model Host {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     name      String
+    logs      Log[]
+}
+
+model Repository {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    name      String
+    app       App      @relation(fields: [appId], references: [id])
+    appId     Int      @unique
+    type      String
+    url       String
+}
+
+model Log {
+    id        Int      @id @default(autoincrement())
+    name      String
+    builderId Int?
+    builder   Builder? @relation(fields: [builderId], references: [id])
+    hostId    Int?
+    host      Host?    @relation(fields: [hostId], references: [id])
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }

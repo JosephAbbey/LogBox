@@ -8,6 +8,7 @@ import { HostForm, FORM_ERROR } from 'app/hosts/components/HostForm';
 export const EditHost = () => {
     const router = useRouter();
     const hostId = useParam('hostId', 'number');
+    const appId = useParam('appId', 'number');
     const [host, { setQueryData }] = useQuery(
         getHost,
         { id: hostId },
@@ -42,7 +43,7 @@ export const EditHost = () => {
                                 ...values,
                             });
                             await setQueryData(updated);
-                            router.push(Routes.ShowHostPage({ hostId: updated.id }));
+                            router.push(Routes.ShowHostPage({ appId: appId!, hostId: updated.id }));
                         } catch (error: any) {
                             console.error(error);
                             return {
@@ -57,6 +58,8 @@ export const EditHost = () => {
 };
 
 const EditHostPage: BlitzPage = () => {
+    const appId = useParam('appId', 'number');
+
     return (
         <div>
             <Suspense fallback={<div>Loading...</div>}>
@@ -64,7 +67,7 @@ const EditHostPage: BlitzPage = () => {
             </Suspense>
 
             <p>
-                <Link href={Routes.HostsPage()}>
+                <Link href={Routes.HostsPage({ appId: appId! })}>
                     <a>Hosts</a>
                 </Link>
             </p>
