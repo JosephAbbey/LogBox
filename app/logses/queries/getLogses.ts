@@ -9,7 +9,7 @@ export default resolver.pipe(
     async ({ where, orderBy, skip = 0, take = 100 }: GetLogsInput) => {
         // TODO: in multi-tenant app, you must add validation to ensure correct tenant
         const {
-            items: logs,
+            items: logses,
             hasMore,
             nextPage,
             count,
@@ -21,7 +21,7 @@ export default resolver.pipe(
         });
 
         return {
-            logs,
+            logses,
             nextPage,
             hasMore,
             count,

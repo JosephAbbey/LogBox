@@ -1037,7 +1037,7 @@ var themes = {
     },
 };
 
-function convert(theme: (typeof themes)[keyof typeof themes]) {
+function convert(theme: typeof themes[keyof typeof themes]) {
     return {
         base: 'vs-dark',
         inherit: false,
@@ -1109,7 +1109,7 @@ const theme = (mode: 'light' | 'dark' = 'light') =>
                 main: themes[mode].colors.yellow,
             },
             info: {
-                main: themes[mode].colors.blue,
+                main: themes[mode].colors.text,
             },
         },
     });

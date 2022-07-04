@@ -3,9 +3,10 @@ import { Head, Link, useRouter, useQuery, useParam, BlitzPage, useMutation, Rout
 import Layout from 'app/core/layouts/Layout';
 import getBuilder from 'app/builders/queries/getBuilder';
 import deleteBuilder from 'app/builders/mutations/deleteBuilder';
-import { Breadcrumbs, Button, Typography } from '@mui/material';
+import { Box, Breadcrumbs, Button, Typography } from '@mui/material';
 import getApp from 'app/apps/queries/getApp';
 import Confirm from 'app/core/components/Confirm';
+import Logs from 'app/core/components/Logs';
 
 export const Builder = () => {
     const router = useRouter();
@@ -55,6 +56,32 @@ export const Builder = () => {
                 </Typography>
 
                 {/* <pre>{JSON.stringify(builder, null, 2)}</pre> */}
+
+                {builder.logs.map((log, index) => (
+                    <Link href={Routes.ShowLogsPage({ logsId: log.id })} key={index}>
+                        <Box sx={{ cursor: 'pointer' }}>
+                            <Logs
+                                name={log.name}
+                                //@ts-expect-error
+                                logs={log.messages
+                                    .slice()
+                                    .concat(
+                                        log.messages.length === 10
+                                            ? [
+                                                  {
+                                                      id: NaN,
+                                                      message: '...',
+                                                      level: 'none',
+                                                      createdAt: new Date(),
+                                                  },
+                                              ]
+                                            : [],
+                                    )
+                                    .reverse()}
+                            />
+                        </Box>
+                    </Link>
+                ))}
 
                 <Link href={Routes.EditBuilderPage({ appId: appId!, builderId: builder.id })}>
                     <Button variant="outlined" sx={{ margin: '.5em' }}>

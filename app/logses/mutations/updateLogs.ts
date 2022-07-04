@@ -12,8 +12,8 @@ export default resolver.pipe(
     resolver.authorize(),
     async ({ id, ...data }) => {
         // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-        const log = await db.log.update({ where: { id }, data });
+        const logs = await db.logs.update({ where: { id }, data });
 
-        return log;
+        return logs;
     },
 );

@@ -4,8 +4,9 @@ import Layout from 'app/core/layouts/Layout';
 import getHost from 'app/hosts/queries/getHost';
 import deleteHost from 'app/hosts/mutations/deleteHost';
 import getApp from 'app/apps/queries/getApp';
-import { Breadcrumbs, Button, Typography } from '@mui/material';
+import { Box, Breadcrumbs, Button, Typography } from '@mui/material';
 import Confirm from 'app/core/components/Confirm';
+import Logs from 'app/core/components/Logs';
 
 export const Host = () => {
     const router = useRouter();
@@ -55,6 +56,32 @@ export const Host = () => {
                 </Typography>
 
                 {/* <pre>{JSON.stringify(host, null, 2)}</pre> */}
+
+                {host.logs.map((log, index) => (
+                    <Link href={Routes.ShowLogsPage({ logsId: log.id })} key={index}>
+                        <Box sx={{ cursor: 'pointer' }}>
+                            <Logs
+                                name={log.name}
+                                //@ts-expect-error
+                                logs={log.messages
+                                    .slice()
+                                    .concat(
+                                        log.messages.length === 10
+                                            ? [
+                                                  {
+                                                      id: NaN,
+                                                      message: '...',
+                                                      level: 'none',
+                                                      createdAt: new Date(),
+                                                  },
+                                              ]
+                                            : [],
+                                    )
+                                    .reverse()}
+                            />
+                        </Box>
+                    </Link>
+                ))}
 
                 <Link href={Routes.EditHostPage({ appId: appId!, hostId: host.id })}>
                     <Button variant="outlined" sx={{ margin: '.5em' }}>

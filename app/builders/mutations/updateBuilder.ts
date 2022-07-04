@@ -12,7 +12,32 @@ export default resolver.pipe(
     resolver.authorize(),
     async ({ id, ...data }) => {
         // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-        const builder = await db.builder.update({ where: { id }, data });
+        const builder = await db.builder.update({
+            where: { id },
+            data,
+            select: {
+                id: true,
+                name: true,
+                logs: {
+                    select: {
+                        id: true,
+                        name: true,
+                        messages: {
+                            select: {
+                                id: true,
+                                message: true,
+                                level: true,
+                                createdAt: true,
+                            },
+                            orderBy: {
+                                createdAt: 'desc',
+                            },
+                            take: 10,
+                        },
+                    },
+                },
+            },
+        });
 
         return builder;
     },
