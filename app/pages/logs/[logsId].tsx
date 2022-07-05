@@ -1,10 +1,10 @@
 import { Suspense } from 'react';
 import { Head, useQuery, useParam, BlitzPage, Link, Routes, useMutation, useRouter } from 'blitz';
-import Layout from 'app/core/layouts/Layout';
-import Logs from 'app/core/components/Logs';
-import getLogs from 'app/logses/queries/getLogs';
+import Layout from '../../core/layouts/Layout';
+import Logs from '../../core/components/Logs';
+import getLogs from '../../logses/queries/getLogs';
 import { Breadcrumbs, Button, Typography } from '@mui/material';
-import deleteWebhook from 'app/webhooks/mutations/deleteWebhook';
+import deleteWebhook from '../../webhooks/mutations/deleteWebhook';
 
 export const LogsPage = () => {
     const router = useRouter();

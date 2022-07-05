@@ -1,7 +1,7 @@
 import { Link, useRouter, useMutation, BlitzPage, Routes, NotFoundError } from 'blitz';
-import Layout from 'app/core/layouts/Layout';
-import createApp from 'app/apps/mutations/createApp';
-import { AppForm, FORM_ERROR } from 'app/apps/components/AppForm';
+import Layout from '../../core/layouts/Layout';
+import createApp from '../../apps/mutations/createApp';
+import { AppForm, FORM_ERROR } from '../../apps/components/AppForm';
 
 const NewAppPage: BlitzPage = () => {
     const router = useRouter();

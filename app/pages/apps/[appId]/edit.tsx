@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 import { Head, Link, useRouter, useQuery, useMutation, useParam, BlitzPage, Routes } from 'blitz';
-import Layout from 'app/core/layouts/Layout';
-import getApp from 'app/apps/queries/getApp';
-import updateApp from 'app/apps/mutations/updateApp';
-import { AppForm, FORM_ERROR } from 'app/apps/components/AppForm';
+import Layout from '../../../core/layouts/Layout';
+import getApp from '../../../apps/queries/getApp';
+import updateApp from '../../../apps/mutations/updateApp';
+import { AppForm, FORM_ERROR } from '../../../apps/components/AppForm';
 
 export const EditApp = () => {
     const router = useRouter();

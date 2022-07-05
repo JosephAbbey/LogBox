@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 import { Head, Link, useRouter, useQuery, useMutation, useParam, BlitzPage, Routes } from 'blitz';
-import Layout from 'app/core/layouts/Layout';
-import getBuilder from 'app/builders/queries/getBuilder';
-import updateBuilder from 'app/builders/mutations/updateBuilder';
-import { BuilderForm, FORM_ERROR } from 'app/builders/components/BuilderForm';
+import Layout from '../../../../../core/layouts/Layout';
+import getBuilder from '../../../../../builders/queries/getBuilder';
+import updateBuilder from '../../../../../builders/mutations/updateBuilder';
+import { BuilderForm, FORM_ERROR } from '../../../../../builders/components/BuilderForm';
 
 export const EditBuilder = () => {
     const router = useRouter();

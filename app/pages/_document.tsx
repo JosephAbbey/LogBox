@@ -9,8 +9,8 @@ import {
 } from 'blitz';
 import { Children } from 'react';
 import createEmotionServer from '@emotion/server/create-instance';
-import theme from 'app/core/styles/theme';
-import createEmotionCache from 'app/core/utils/createEmotionCache';
+import theme from '../core/styles/theme';
+import createEmotionCache from '../core/utils/createEmotionCache';
 import { useMediaQuery } from '@mui/material';
 
 export function MetaThemeColor() {

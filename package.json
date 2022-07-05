@@ -1,10 +1,17 @@
 {
     "name": "logbox",
     "version": "1.0.0",
+    "author": "Joseph Abbey",
+    "bugs": {
+        "url": "https://github.com/JosephAbbey/LogBox/issues"
+    },
+    "homepage": "https://log-boxes.herokuapp.com/",
+    "license": "MIT",
     "scripts": {
         "dev": "blitz dev",
         "build": "blitz build",
         "start": "blitz start",
+        "start:production": "blitz start --port $PORT",
         "studio": "blitz prisma studio",
         "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
         "test": "jest",

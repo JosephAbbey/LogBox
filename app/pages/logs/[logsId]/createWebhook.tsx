@@ -1,6 +1,6 @@
 import { useMutation, BlitzPage, Routes, useParam, Link } from 'blitz';
-import Layout from 'app/core/layouts/Layout';
-import createWebhook from 'app/webhooks/mutations/createWebhook';
+import Layout from '../../../core/layouts/Layout';
+import createWebhook from '../../../webhooks/mutations/createWebhook';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 

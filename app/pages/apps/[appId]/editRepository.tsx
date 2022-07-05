@@ -1,9 +1,9 @@
 import { useRouter, useMutation, BlitzPage, Routes, useParam, useQuery } from 'blitz';
-import Layout from 'app/core/layouts/Layout';
-import { RepositoryForm, FORM_ERROR } from 'app/repository/components/RepositoryForm';
-import updateRepository from 'app/repository/mutations/updateRepository';
-import getRepository from 'app/repository/queries/getRepository';
-import getApp from 'app/apps/queries/getApp';
+import Layout from '../../../core/layouts/Layout';
+import { RepositoryForm, FORM_ERROR } from '../../../repository/components/RepositoryForm';
+import updateRepository from '../../../repository/mutations/updateRepository';
+import getRepository from '../../../repository/queries/getRepository';
+import getApp from '../../../apps/queries/getApp';
 import { Suspense } from 'react';
 
 const EditRepositoryPageInner = () => {

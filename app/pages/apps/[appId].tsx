@@ -10,10 +10,10 @@ import {
     Routes,
     RouteUrlObject,
 } from 'blitz';
-import Confirm from 'app/core/components/Confirm';
-import Layout from 'app/core/layouts/Layout';
-import getApp from 'app/apps/queries/getApp';
-import deleteApp from 'app/apps/mutations/deleteApp';
+import Confirm from '../../core/components/Confirm';
+import Layout from '../../core/layouts/Layout';
+import getApp from '../../apps/queries/getApp';
+import deleteApp from '../../apps/mutations/deleteApp';
 import { Box, Button, Paper, PaperProps, Stack, Typography } from '@mui/material';
 import { GitHub } from '@mui/icons-material';
 

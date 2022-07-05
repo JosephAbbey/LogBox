@@ -1,9 +1,9 @@
 import { BlitzPage, Link, Routes } from 'blitz';
-import Layout from 'app/core/layouts/Layout';
+import Layout from '../core/layouts/Layout';
 import { AppsList } from './apps';
 import { Suspense } from 'react';
 import { Box, Button, Paper, Typography } from '@mui/material';
-import Aside from 'app/core/components/Aside';
+import Aside from '../core/components/Aside';
 
 const Home: BlitzPage = () => {
     return (

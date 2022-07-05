@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 import { Head, Link, useRouter, useQuery, useMutation, useParam, BlitzPage, Routes } from 'blitz';
-import Layout from 'app/core/layouts/Layout';
-import getHost from 'app/hosts/queries/getHost';
-import updateHost from 'app/hosts/mutations/updateHost';
-import { HostForm, FORM_ERROR } from 'app/hosts/components/HostForm';
+import Layout from '../../../../../core/layouts/Layout';
+import getHost from '../../../../../hosts/queries/getHost';
+import updateHost from '../../../../../hosts/mutations/updateHost';
+import { HostForm, FORM_ERROR } from '../../../../../hosts/components/HostForm';
 
 export const EditHost = () => {
     const router = useRouter();

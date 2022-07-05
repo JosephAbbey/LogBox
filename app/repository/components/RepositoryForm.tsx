@@ -1,8 +1,8 @@
-import { Form, FormProps } from 'app/core/components/Form';
-import { LabeledTextField } from 'app/core/components/LabeledTextField';
-import { LabeledDropDown } from 'app/core/components/LabeledDropDown';
+import { Form, FormProps } from '../../core/components/Form';
+import { LabeledTextField } from '../../core/components/LabeledTextField';
+import { LabeledDropDown } from '../../core/components/LabeledDropDown';
 import { z } from 'zod';
-export { FORM_ERROR } from 'app/core/components/Form';
+export { FORM_ERROR } from '../../core/components/Form';
 
 export function RepositoryForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
     return (

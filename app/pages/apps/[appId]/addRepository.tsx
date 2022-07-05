@@ -1,7 +1,7 @@
 import { useRouter, useMutation, BlitzPage, Routes, useParam } from 'blitz';
-import Layout from 'app/core/layouts/Layout';
-import createRepository from 'app/repository/mutations/createRepository';
-import { RepositoryForm, FORM_ERROR } from 'app/repository/components/RepositoryForm';
+import Layout from '../../../core/layouts/Layout';
+import createRepository from '../../../repository/mutations/createRepository';
+import { RepositoryForm, FORM_ERROR } from '../../../repository/components/RepositoryForm';
 
 const AddRepositoryPage: BlitzPage = () => {
     const router = useRouter();
