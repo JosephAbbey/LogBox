@@ -4,8 +4,9 @@ import { RepositoryForm, FORM_ERROR } from 'app/repository/components/Repository
 import updateRepository from 'app/repository/mutations/updateRepository';
 import getRepository from 'app/repository/queries/getRepository';
 import getApp from 'app/apps/queries/getApp';
+import { Suspense } from 'react';
 
-const EditRepositoryPage: BlitzPage = () => {
+const EditRepositoryPageInner = () => {
     const router = useRouter();
     const appId = useParam('appId', 'number');
     const [app] = useQuery(getApp, { id: appId });
@@ -21,7 +22,7 @@ const EditRepositoryPage: BlitzPage = () => {
 
     return (
         <div>
-            <h1>Add Repository</h1>
+            <h1>Edit Repository</h1>
 
             <RepositoryForm
                 submitText="Edit Repository"
@@ -50,7 +51,13 @@ const EditRepositoryPage: BlitzPage = () => {
     );
 };
 
+const EditRepositoryPage: BlitzPage = () => (
+    <Suspense fallback="Loading...">
+        <EditRepositoryPageInner />
+    </Suspense>
+);
+
 EditRepositoryPage.authenticate = true;
-EditRepositoryPage.getLayout = (page) => <Layout title={'Edit new repository'}>{page}</Layout>;
+EditRepositoryPage.getLayout = (page) => <Layout title={'Edit repository'}>{page}</Layout>;
 
 export default EditRepositoryPage;
