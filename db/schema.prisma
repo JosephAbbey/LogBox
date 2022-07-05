@@ -117,7 +117,7 @@ model Logs {
     host      Host?    @relation(fields: [hostId], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-    webhook   WebHook?
+    webhook   Webhook?
     messages  Log[]
 }
 
@@ -131,7 +131,7 @@ model Log {
     logs      Logs     @relation(fields: [logsId], references: [id])
 }
 
-model WebHook {
+model Webhook {
     id        Int      @id @default(autoincrement())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

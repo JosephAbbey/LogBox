@@ -1,11 +1,13 @@
 import { Suspense } from 'react';
-import { Head, useQuery, useParam, BlitzPage, Link } from 'blitz';
+import { Head, useQuery, useParam, BlitzPage, Link, Routes, useMutation, useRouter } from 'blitz';
 import Layout from 'app/core/layouts/Layout';
 import Logs from 'app/core/components/Logs';
 import getLogs from 'app/logses/queries/getLogs';
-import { Breadcrumbs, Typography } from '@mui/material';
+import { Breadcrumbs, Button, Typography } from '@mui/material';
+import deleteWebhook from 'app/webhooks/mutations/deleteWebhook';
 
 export const LogsPage = () => {
+    const router = useRouter();
     const logsId = useParam('logsId', 'number');
     const [logs] = useQuery(
         getLogs,
@@ -22,6 +24,7 @@ export const LogsPage = () => {
         })();
     const connectionType = logs.builder ? 'builder' : 'host';
     const app = connection.app;
+    const [deleteWebhookMutation] = useMutation(deleteWebhook);
 
     return (
         <>
@@ -91,6 +94,25 @@ export const LogsPage = () => {
                     //@ts-expect-error
                     logs={logs.messages.slice().reverse()}
                 />
+
+                {logs.webhook ? (
+                    <Button
+                        variant="outlined"
+                        sx={{ margin: '.5em' }}
+                        onClick={async () => {
+                            await deleteWebhookMutation({ id: logs.webhook?.id! });
+                            router.reload();
+                        }}
+                    >
+                        Remove Webhook
+                    </Button>
+                ) : (
+                    <Link href={Routes.CreateWebhookPage({ logsId: logsId! })}>
+                        <Button variant="outlined" sx={{ margin: '.5em' }}>
+                            Add Webhook
+                        </Button>
+                    </Link>
+                )}
             </div>
         </>
     );

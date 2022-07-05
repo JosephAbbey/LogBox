@@ -83,6 +83,12 @@ export const Builder = () => {
                     </Link>
                 ))}
 
+                <Link href={Routes.CreateBuilderLogsPage({ appId: appId!, builderId: builder.id })}>
+                    <Button variant="outlined" sx={{ margin: '.5em' }}>
+                        Create Log
+                    </Button>
+                </Link>
+
                 <Link href={Routes.EditBuilderPage({ appId: appId!, builderId: builder.id })}>
                     <Button variant="outlined" sx={{ margin: '.5em' }}>
                         Edit

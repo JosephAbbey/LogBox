@@ -28,6 +28,7 @@ function NavBarInner() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
     return (
         <>
             <Paper

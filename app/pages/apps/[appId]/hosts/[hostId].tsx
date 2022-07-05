@@ -83,6 +83,12 @@ export const Host = () => {
                     </Link>
                 ))}
 
+                <Link href={Routes.CreateHostLogsPage({ appId: appId!, hostId: host.id })}>
+                    <Button variant="outlined" sx={{ margin: '.5em' }}>
+                        Create Log
+                    </Button>
+                </Link>
+
                 <Link href={Routes.EditHostPage({ appId: appId!, hostId: host.id })}>
                     <Button variant="outlined" sx={{ margin: '.5em' }}>
                         Edit

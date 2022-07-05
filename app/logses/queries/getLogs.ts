@@ -50,6 +50,9 @@ export default resolver.pipe(resolver.zod(GetLog), resolver.authorize(), async (
                     },
                 },
             },
+            webhook: {
+                select: { id: true },
+            },
         },
     });
 
