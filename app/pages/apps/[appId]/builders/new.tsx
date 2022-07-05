@@ -1,7 +1,7 @@
 import { Link, useRouter, useMutation, useParam, BlitzPage, Routes } from 'blitz';
-import Layout from '../../../../core/layouts/Layout';
-import createBuilder from '../../../../builders/mutations/createBuilder';
-import { BuilderForm, FORM_ERROR } from '../../../../builders/components/BuilderForm';
+import Layout from 'app/core/layouts/Layout';
+import createBuilder from 'app/builders/mutations/createBuilder';
+import { BuilderForm, FORM_ERROR } from 'app/builders/components/BuilderForm';
 
 const NewBuilderPage: BlitzPage = () => {
     const router = useRouter();

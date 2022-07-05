@@ -1,9 +1,8 @@
 import { Suspense } from 'react';
 import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes } from 'blitz';
-import Layout from '../../core/layouts/Layout';
-import getApps from '../../apps/queries/getApps';
-import { Box, Breadcrumbs, Button, Pagination, Paper, Stack, Typography } from '@mui/material';
-import { useCurrentUser } from '../../core/hooks/useCurrentUser';
+import Layout from 'app/core/layouts/Layout';
+import getApps from 'app/apps/queries/getApps';
+import { Box, Button, Pagination, Paper, Stack, Typography } from '@mui/material';
 
 const ITEMS_PER_PAGE = 10;
 

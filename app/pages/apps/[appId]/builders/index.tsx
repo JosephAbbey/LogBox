@@ -9,10 +9,10 @@ import {
     Routes,
     useQuery,
 } from 'blitz';
-import Layout from '../../../../core/layouts/Layout';
-import getBuilders from '../../../../builders/queries/getBuilders';
+import Layout from 'app/core/layouts/Layout';
+import getBuilders from 'app/builders/queries/getBuilders';
 import { Box, Breadcrumbs, Button, Pagination, Paper, Stack, Typography } from '@mui/material';
-import getApp from '../../../../apps/queries/getApp';
+import getApp from 'app/apps/queries/getApp';
 
 const ITEMS_PER_PAGE = 10;
 

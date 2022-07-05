@@ -1,12 +1,12 @@
 import { Suspense } from 'react';
 import { Head, Link, useRouter, useQuery, useParam, BlitzPage, useMutation, Routes } from 'blitz';
-import Layout from '../../../../core/layouts/Layout';
-import getBuilder from '../../../../builders/queries/getBuilder';
-import deleteBuilder from '../../../../builders/mutations/deleteBuilder';
+import Layout from 'app/core/layouts/Layout';
+import getBuilder from 'app/builders/queries/getBuilder';
+import deleteBuilder from 'app/builders/mutations/deleteBuilder';
 import { Box, Breadcrumbs, Button, Typography } from '@mui/material';
-import getApp from '../../../../apps/queries/getApp';
-import Confirm from '../../../../core/components/Confirm';
-import Logs from '../../../../core/components/Logs';
+import getApp from 'app/apps/queries/getApp';
+import Confirm from 'app/core/components/Confirm';
+import Logs from 'app/core/components/Logs';
 
 export const Builder = () => {
     const router = useRouter();

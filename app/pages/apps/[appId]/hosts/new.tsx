@@ -1,7 +1,7 @@
 import { Link, useRouter, useMutation, BlitzPage, Routes, useParam } from 'blitz';
-import Layout from '../../../../core/layouts/Layout';
-import createHost from '../../../../hosts/mutations/createHost';
-import { HostForm, FORM_ERROR } from '../../../../hosts/components/HostForm';
+import Layout from 'app/core/layouts/Layout';
+import createHost from 'app/hosts/mutations/createHost';
+import { HostForm, FORM_ERROR } from 'app/hosts/components/HostForm';
 
 const NewHostPage: BlitzPage = () => {
     const router = useRouter();

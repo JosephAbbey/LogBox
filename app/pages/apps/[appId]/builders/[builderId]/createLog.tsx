@@ -1,7 +1,7 @@
 import { useRouter, useMutation, BlitzPage, Routes, useParam } from 'blitz';
-import Layout from '../../../../../core/layouts/Layout';
-import createLogs from '../../../../../logses/mutations/createLogs';
-import { LogsForm, FORM_ERROR } from '../../../../../logses/components/LogsForm';
+import Layout from 'app/core/layouts/Layout';
+import createLogs from 'app/logses/mutations/createLogs';
+import { LogsForm, FORM_ERROR } from 'app/logses/components/LogsForm';
 
 const CreateBuilderLogsPage: BlitzPage = () => {
     const router = useRouter();

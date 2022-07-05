@@ -11,8 +11,8 @@ import {
     Paper,
     Badge,
 } from '@mui/material';
-import { useCurrentUser } from '../../core/hooks/useCurrentUser';
-import logout from '../../auth/mutations/logout';
+import { useCurrentUser } from 'app/core/hooks/useCurrentUser';
+import logout from 'app/auth/mutations/logout';
 import { useMutation, Routes, Link } from 'blitz';
 import * as React from 'react';
 import { Home, Logout, Settings } from '@mui/icons-material';

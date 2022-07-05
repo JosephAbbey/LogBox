@@ -7,15 +7,15 @@ import {
     ErrorFallbackProps,
     useQueryErrorResetBoundary,
 } from 'blitz';
-import LoginForm from '../auth/components/LoginForm';
+import LoginForm from 'app/auth/components/LoginForm';
 
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
-import theme from '../core/styles/theme';
-import createEmotionCache from '../core/utils/createEmotionCache';
+import theme from 'app/core/styles/theme';
+import createEmotionCache from 'app/core/utils/createEmotionCache';
 import { Box, useMediaQuery } from '@mui/material';
-import NavBar from '../core/components/NavBar';
+import NavBar from 'app/core/components/NavBar';
 
 import '../core/styles/global.css';
 
