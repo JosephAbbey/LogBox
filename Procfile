@@ -1,2 +1,2 @@
-release: npx blitz prisma migrate deploy
-web: npm run start:production
+release: yarn blitz prisma migrate deploy
+web: yarn start:production
