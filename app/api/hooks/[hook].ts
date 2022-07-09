@@ -31,7 +31,7 @@ const handler: BlitzApiHandler = async (req, res) => {
     const logs = (await db.webhook
         .findUnique({
             where: {
-                id: parseInt(id),
+                id,
             },
         })
         .logs())!;

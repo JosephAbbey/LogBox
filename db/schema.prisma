@@ -43,13 +43,11 @@ model Session {
 }
 
 model Token {
-    id          Int      @id @default(autoincrement())
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+    id          Int       @id @default(autoincrement())
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
     hashedToken String
-    type        String
-    // See note below about TokenType enum
-    // type        TokenType
+    type        TokenType
     expiresAt   DateTime
     sentTo      String
 
@@ -59,12 +57,9 @@ model Token {
     @@unique([hashedToken, type])
 }
 
-// NOTE: It's highly recommended to use an enum for the token type
-//       but enums only work in Postgres.
-//       See: https://blitzjs.com/docs/database-overview#switch-to-postgre-sql
-// enum TokenType {
-//   RESET_PASSWORD
-// }
+enum TokenType {
+    RESET_PASSWORD
+}
 
 model App {
     name       String      @unique
@@ -98,14 +93,18 @@ model Host {
 }
 
 model Repository {
-    id        Int      @id @default(autoincrement())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id        Int            @id @default(autoincrement())
+    createdAt DateTime       @default(now())
+    updatedAt DateTime       @updatedAt
     name      String
-    app       App      @relation(fields: [appId], references: [id])
-    appId     Int      @unique
-    type      String
+    app       App            @relation(fields: [appId], references: [id])
+    appId     Int            @unique
+    type      RepositoryType
     url       String
+}
+
+enum RepositoryType {
+    GitHub
 }
 
 model Logs {
@@ -132,7 +131,7 @@ model Log {
 }
 
 model Webhook {
-    id        Int      @id @default(autoincrement())
+    id        String   @id @unique @default(uuid())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     logs      Logs     @relation(fields: [logsId], references: [id])
