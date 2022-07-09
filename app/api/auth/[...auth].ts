@@ -27,8 +27,8 @@ export default passportAuth({
                         })(),
                     callbackURL:
                         (process.env.NODE_ENV === 'development'
-                            ? 'http://localhost:3000/'
-                            : 'https://log-boxes.herokuapp.com/') + 'api/auth/github/callback',
+                            ? 'http://localhost:3000'
+                            : 'https://log-boxes.herokuapp.com') + '/api/auth/github/callback',
                 },
                 async function (
                     _token: string,
