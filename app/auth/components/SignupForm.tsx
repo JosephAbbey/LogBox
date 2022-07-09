@@ -5,11 +5,11 @@ import signup from 'app/auth/mutations/signup';
 import { Signup } from 'app/auth/validations';
 import { ThirdPartySignins } from './ThirdPartySignins';
 
-type SignUpFormProps = {
+type SignupFormProps = {
     onSuccess?: () => void;
 };
 
-export const SignUpForm = (props: SignUpFormProps) => {
+export const SignupForm = (props: SignupFormProps) => {
     const [signupMutation] = useMutation(signup);
 
     return (
@@ -49,4 +49,4 @@ export const SignUpForm = (props: SignUpFormProps) => {
     );
 };
 
-export default SignUpForm;
+export default SignupForm;
