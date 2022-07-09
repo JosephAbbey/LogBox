@@ -72,7 +72,7 @@ export const LoginForm = (props: LoginFormProps) => {
                 </Form>
                 <div>
                     or{'   '}
-                    <Link href={Routes.SignUpPage()}>
+                    <Link href={Routes.SignupPage()}>
                         <Button>Sign Up</Button>
                     </Link>
                 </div>

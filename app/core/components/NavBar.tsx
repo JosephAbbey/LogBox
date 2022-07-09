@@ -131,7 +131,7 @@ function NavBarInner() {
                       ]
                     : [
                           <MenuItem key={0}>
-                              <Link href={Routes.SignUpPage()}>
+                              <Link href={Routes.SignupPage()}>
                                   <strong>Sign Up</strong>
                               </Link>
                           </MenuItem>,
