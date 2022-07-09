@@ -25,7 +25,10 @@ export default passportAuth({
                                 'You must give a github client secret through `GITHUB_CLIENT_SECRET`',
                             );
                         })(),
-                    callbackURL: 'http://localhost:3000/api/auth/github/callback',
+                    callbackURL:
+                        (process.env.NODE_ENV === 'development'
+                            ? 'http://localhost:3000/'
+                            : 'https://log-boxes.herokuapp.com/') + 'api/auth/github/callback',
                 },
                 async function (
                     _token: string,
