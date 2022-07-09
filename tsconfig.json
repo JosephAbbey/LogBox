@@ -12,7 +12,7 @@
         "noUncheckedIndexedAccess": true,
         "esModuleInterop": true,
         "module": "esnext",
-        "moduleResolution": "node",
+        "moduleResolution": "classic",
         "resolveJsonModule": true,
         "isolatedModules": true,
         "jsx": "preserve",

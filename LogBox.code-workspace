@@ -27,6 +27,9 @@
             "**/.blitz.config.compiled.js": true,
             "**/yarn.lock": true,
             "**/yarn-error.log": true
+        },
+        "[procfile]": {
+            "editor.defaultFormatter": "benspaulding.procfile"
         }
     },
     "extensions": {
