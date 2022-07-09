@@ -1,6 +1,6 @@
 import { useRouter, BlitzPage, Routes } from 'blitz';
 import Layout from 'app/core/layouts/Layout';
-import { SignUpForm } from 'app/auth/components/SignUpForm';
+import { SignUpForm } from 'app/auth/components/SignupForm';
 
 const SignUpPage: BlitzPage = () => {
     const router = useRouter();
