@@ -1,0 +1,13 @@
+{
+    "short_name": "LogBox",
+    "icons": [
+        { "src": "/favicon.ico", "type": "image/ico", "size": "32x32" },
+        { "src": "/favicon.png", "type": "image/png", "size": "144x144", "purpose": "any" },
+        { "src": "/logo.png", "type": "image/png", "size": "800x369" }
+    ],
+    "name": "Log Boxes",
+    "start_url": "/",
+    "display": "standalone",
+    "scope": "/",
+    "description": "View all your logs and metrics for your project right here."
+}

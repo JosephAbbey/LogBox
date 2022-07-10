@@ -143,7 +143,7 @@ function NavBarInner() {
                 }}
             >
                 <Link href={Routes.Home()}>
-                    <IconButton size="small" sx={{ ml: 2, marginX: '.5em' }}>
+                    <IconButton size="small" sx={{ ml: 2, marginX: '.5em' }} aria-label="Home">
                         <Avatar
                             sx={{
                                 width: 32,

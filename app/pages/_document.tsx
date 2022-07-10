@@ -13,13 +13,6 @@ import theme from 'app/core/styles/theme';
 import createEmotionCache from 'app/core/utils/createEmotionCache';
 import { useMediaQuery } from '@mui/material';
 
-export function MetaThemeColor() {
-    var dark = useMediaQuery('(prefers-color-scheme: dark)');
-    return (
-        <meta name="theme-color" content={theme(dark ? 'dark' : 'light').palette.primary.main} />
-    );
-}
-
 export default class MyDocument extends Document {
     static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
         // Resolution order
@@ -82,8 +75,22 @@ export default class MyDocument extends Document {
         return (
             <Html lang="en">
                 <DocumentHead>
-                    {/* PWA primary color */}
-                    <MetaThemeColor />
+                    {/* META properties */}
+                    <meta
+                        name="theme-color"
+                        media="(prefers-color-scheme: light)"
+                        content={theme('light').palette.primary.main}
+                    />
+                    <meta
+                        name="theme-color"
+                        media="(prefers-color-scheme: dark)"
+                        content={theme('dark').palette.primary.main}
+                    />
+                    <link rel="manifest" href="/manifest.json" />
+                    <meta
+                        name="description"
+                        content="View all your logs and metrics for your project right here."
+                    />
                     {/* eslint-disable-next-line @next/next/no-page-custom-font */}
                     <link
                         rel="stylesheet"
