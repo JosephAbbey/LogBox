@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import { Head, useQuery, useParam, BlitzPage, Link, Routes, useMutation, useRouter } from 'blitz';
 import Layout from 'app/core/layouts/Layout';
+import Confirm from 'app/core/components/Confirm';
 import Logs from 'app/core/components/Logs';
 import getLogs from 'app/logses/queries/getLogs';
 import { Breadcrumbs, Button, Typography } from '@mui/material';
