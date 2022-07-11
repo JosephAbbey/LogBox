@@ -5,6 +5,7 @@ import Logs from 'app/core/components/Logs';
 import getLogs from 'app/logses/queries/getLogs';
 import { Breadcrumbs, Button, Typography } from '@mui/material';
 import deleteWebhook from 'app/webhooks/mutations/deleteWebhook';
+import deleteLogs from 'app/logses/mutations/deleteLogs';
 
 export const LogsPage = () => {
     const router = useRouter();
@@ -25,6 +26,7 @@ export const LogsPage = () => {
     const connectionType = logs.builder ? 'builder' : 'host';
     const app = connection.app;
     const [deleteWebhookMutation] = useMutation(deleteWebhook);
+    const [deleteLogsMutation] = useMutation(deleteLogs);
 
     return (
         <>
@@ -113,6 +115,15 @@ export const LogsPage = () => {
                         </Button>
                     </Link>
                 )}
+                
+                <Confirm
+                    title="This will be deleted."
+                    button="Delete"
+                    handleYes={async () => {
+                        await deleteLogsMutation({ id: logsId });
+                        window.history.back();
+                    }}
+                ></Confirm>
             </div>
         </>
     );
