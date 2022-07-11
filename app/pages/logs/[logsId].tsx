@@ -121,7 +121,7 @@ export const LogsPage = () => {
                     title="This will be deleted."
                     button="Delete"
                     handleYes={async () => {
-                        await deleteLogsMutation({ id: logsId });
+                        await deleteLogsMutation({ id: logsId! });
                         window.history.back();
                     }}
                 ></Confirm>
